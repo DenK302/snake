@@ -11,8 +11,8 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            //Console.SetBufferSize(120, 30);
-            HorizontalLine upline = new HorizontalLine(0,118,0,'+');
+            Console.SetBufferSize(122, 32);
+            HorizontalLine upline = new HorizontalLine(0, 118, 0, '+');
             upline.Drow();
 
             HorizontalLine downline = new HorizontalLine(0, 118, 28, '+');
@@ -27,20 +27,17 @@ namespace Snake
             Point p = new Point(4, 5, '*');
             Snake snake = new Snake(p, 4, Direction.RIGHT);
             snake.Drow();
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
+            while (true)
+            {
+                if(Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    snake.HandleKey(key.Key);
+                }
+
+                Thread.Sleep(100);
+                snake.Move();
+            }
         }
     }
 }
