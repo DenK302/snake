@@ -37,7 +37,20 @@ namespace Snake
             Point head = pList.Last();
             Point nextpoint = new Point(head);
             nextpoint.Move(1, direction);
-            return nextpoint;
+            return nextpoint;   
+        }
+
+        internal bool IsHitTail()
+        {
+            var head = pList.Last();
+            for (int i = 0; i < pList.Count -2; i++)
+            {
+                if (head.IsHit(pList[i]))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void HandleKey(ConsoleKey key)
@@ -50,6 +63,22 @@ namespace Snake
                 direction = Direction.DOWN;
             if (key == ConsoleKey.W)
                 direction = Direction.UP;
+        }
+
+
+        internal bool Eat(Point food)
+        {
+            Point head = GetNextPoint();
+            if (head.IsHit(food))
+            {
+                food.sym = head.sym;
+                pList.Add(food);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
